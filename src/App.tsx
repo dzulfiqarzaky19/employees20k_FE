@@ -6,12 +6,11 @@ import { LoginPage } from './pages/LoginPage';
 import { Dashboard } from './pages/Dashboard';
 import { Layout } from './components/Layout';
 
-
 const queryClient = new QueryClient();
 
 function App() {
   return (
-  <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <BrowserRouter>
           <Layout>

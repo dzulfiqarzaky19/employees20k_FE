@@ -1,0 +1,41 @@
+import { useAuth } from '@/context/AuthContext';
+import api from '@/lib/api';
+import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+
+interface LoginResponse {
+  token: string;
+}
+
+interface LoginRequest {
+  loginIdentifier: string;
+  password: string;
+}
+
+export const useLogin = () => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const mutation = useMutation<LoginResponse, Error, LoginRequest>({
+    mutationFn: async (credentials) => {
+      const response = await api.post('/auth/login', credentials);
+      return response.data;
+    },
+    onSuccess: (data) => {
+      login(data.token);
+
+      toast.success('Signed in successfully!');
+
+      navigate('/', { replace: true });
+    },
+    onError: (error: Error) => {
+      const errorMessage =
+        error.response?.data?.message || 'Something went wrong';
+
+      toast.error(errorMessage);
+    },
+  });
+
+  return mutation;
+};
