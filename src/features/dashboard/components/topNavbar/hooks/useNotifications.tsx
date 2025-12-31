@@ -4,20 +4,20 @@ import { useEffect } from 'react';
 import { io } from 'socket.io-client';
 
 interface Notification {
-    id: string;
-    type: string;
-    message: string;
-    timestamp: Date;
+  id: string;
+  type: string;
+  message: string;
+  timestamp: Date;
 }
 
 export const useNotifications = () => {
   const queryClient = useQueryClient();
-  const {admin} = useAuth();
+  const { admin } = useAuth();
 
   const { data: notifications = [] } = useQuery<Notification[]>({
     queryKey: ['notifications'],
     initialData: [],
-    staleTime: Infinity, 
+    staleTime: Infinity,
     gcTime: Infinity,
   });
 
@@ -25,9 +25,9 @@ export const useNotifications = () => {
     const userId = admin?.id;
 
     if (!userId) return;
-    
+
     const socket = io(import.meta.env.VITE_WS_URL || 'http://localhost:3000', {
-      query: {userId}
+      query: { userId },
     });
 
     socket.on('notification', (data) => {
@@ -37,12 +37,14 @@ export const useNotifications = () => {
         timestamp: new Date(),
       };
 
-      queryClient.setQueryData(['notifications'], (prev: Notification[] = []) => 
+      queryClient.setQueryData(['notifications'], (prev: Notification[] = []) =>
         [newNotif, ...prev].slice(0, 10)
       );
     });
 
-    return () => { socket.disconnect(); };
+    return () => {
+      socket.disconnect();
+    };
   }, [queryClient]);
 
   return { notifications };

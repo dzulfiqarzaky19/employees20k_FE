@@ -10,7 +10,7 @@ export const useMe = () => {
 
       try {
         const { data } = await api.get('/auth/me');
-        return data; 
+        return data;
       } catch {
         localStorage.removeItem('token');
         return null;
