@@ -3,10 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { LoginForm } from '@/features/login/components/LoginForm';
 
-export const LoginPage = () => {
-  return (
+export const LoginPage = () => (
     <div className="flex flex-1 overflow-hidden">
-      {/* Left Side: Brand Visuals (Desktop only) */}
+        
       <div className="relative hidden overflow-hidden border-r border-white/5 bg-slate-950 lg:flex lg:w-1/2">
         <div className="relative z-10 flex w-full flex-col justify-between p-16">
           <div className="flex items-center gap-3">
@@ -66,7 +65,6 @@ export const LoginPage = () => {
         </div>
       </div>
 
-      {/* Right Side: Login Form */}
       <div className="relative flex w-full items-center justify-center p-6 sm:p-12 lg:w-1/2">
         {/* Mobile Background Elements */}
         <div className="absolute inset-0 -z-10 bg-slate-950 lg:hidden" />
@@ -140,4 +138,3 @@ export const LoginPage = () => {
       </div>
     </div>
   );
-};
