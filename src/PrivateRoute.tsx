@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom';
+import { useAuth } from './context/AuthContext';
 
 export const PrivateRoute = () => {
-    const isLoading = false
-    const admin = true
+    const { admin, isLoading } = useAuth();
 
     if (isLoading) {
         return (
