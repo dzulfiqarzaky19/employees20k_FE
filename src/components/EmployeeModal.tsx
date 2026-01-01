@@ -6,15 +6,25 @@ import {
   type Employee,
 } from '@/features/dashboard/hooks/useEmployeeMutations';
 import { useEmployee } from '@/features/dashboard/hooks/useEmployee';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EmployeeDetail } from './EmployeeDetail';
 import { Loader } from 'lucide-react';
 
 export const EmployeeModal = () => {
   const { isOpen, mode, selectedId, close } = useEmployeeModal();
-  const [view, setView] = useState<'edit' | 'detail'>('detail');
+  const [view, setView] = useState<'edit' | 'detail'>(
+    selectedId ? 'detail' : 'edit'
+  );
   const { createMutation, updateMutation } = useEmployeeMutations();
   // Fetch details if we have a selectedId
+  console.log({ selectedId });
+
+  useEffect(() => {
+    if (selectedId) {
+      setView('detail');
+    }
+  }, []);
+
   const { data: employeeDetails, isLoading } = useEmployee(selectedId);
   const handleFormSubmit = (data: Omit<Employee, 'id' | 'createdAt'>) => {
     if (mode === 'edit') {

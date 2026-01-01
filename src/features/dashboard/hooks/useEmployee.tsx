@@ -6,7 +6,7 @@ export const useEmployee = (id: string | null) => {
     queryKey: ['employees', 'detail', id],
 
     queryFn: async () => {
-      const { data } = await api.get(`/employees/${id}`);
+      const { data } = await api.get(`/employee/${id}`);
       return data;
     },
 

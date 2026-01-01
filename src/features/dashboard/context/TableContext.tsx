@@ -1,6 +1,5 @@
 import type { OnChangeFn, SortingState } from '@tanstack/react-table';
 import { createContext, useContext, useState } from 'react';
-import { useDebounce } from '../hooks/useDebounce';
 
 interface ITableContext {
   search: string;
@@ -30,12 +29,10 @@ export const TableProvider = ({ children }: { children: React.ReactNode }) => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(20000);
 
-  const debouncedSearch = useDebounce(search, 500);
-
   return (
     <TableContext.Provider
       value={{
-        search: debouncedSearch,
+        search,
         setSearch,
         sorting,
         setSorting,

@@ -7,6 +7,7 @@ export const Stats = () => {
   const { stats } = useEmployees();
 
   if (!stats) return null;
+  
   return (
     <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       <Card className="group relative overflow-hidden border-white/10 bg-white/5 backdrop-blur-xl">

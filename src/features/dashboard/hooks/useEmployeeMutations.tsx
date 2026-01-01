@@ -16,17 +16,17 @@ export const useEmployeeMutations = () => {
 
   const createMutation = useMutation({
     mutationFn: (newEmployee: Omit<Employee, 'id' | 'createdAt'>) =>
-      api.post('/employees', newEmployee),
+      api.post('/employee', newEmployee),
   });
 
   const updateMutation = useMutation({
     mutationFn: (updatedEmployee: Omit<Employee, 'createdAt'>) =>
-      api.put(`/employees/${updatedEmployee.id}`, updatedEmployee),
+      api.patch(`/employee/${updatedEmployee.id}`, updatedEmployee),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ['employees'] }),
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => api.delete(`/employees/${id}`),
+    mutationFn: (id: string) => api.delete(`/employee/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['employees'] });
 

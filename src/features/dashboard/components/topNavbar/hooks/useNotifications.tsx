@@ -27,9 +27,13 @@ export const useNotifications = () => {
     if (!userId) return;
 
     const socket = io(import.meta.env.VITE_WS_URL || 'http://localhost:3000', {
-      query: { userId },
+      transports: ['websocket'],
     });
 
+    socket.on('connect_error', (err) => {
+      console.error('Socket Connection Error Details:', err.message);
+      console.error('Error Object:', err);
+    });
     socket.on('notification', (data) => {
       const newNotif = {
         id: crypto.randomUUID(),
@@ -45,7 +49,7 @@ export const useNotifications = () => {
     return () => {
       socket.disconnect();
     };
-  }, [queryClient]);
+  }, [admin?.id, queryClient]);
 
   return { notifications };
 };

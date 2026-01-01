@@ -1,8 +1,4 @@
-import { useEffect } from 'react';
-import { io } from 'socket.io-client';
-import { toast } from 'sonner';
 import { TrendingUp } from 'lucide-react';
-import { useQueryClient } from '@tanstack/react-query';
 import { TopNavbar } from '@/features/dashboard/components/topNavbar/TopNavbar';
 import { Stats } from '@/features/dashboard/components/stats/Stats';
 import { TableProvider } from '@/features/dashboard/context/TableContext';
@@ -10,25 +6,6 @@ import { TableMain } from '@/features/dashboard/components/table/TableMain';
 import { EmployeeModal } from '@/components/EmployeeModal';
 
 export const Dashboard = () => {
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const socket = io(import.meta.env.VITE_WS_URL || 'http://localhost:3000');
-
-    socket.on('notification', (data: any) => {
-      if (data.type === 'EMPLOYEE_CREATED') {
-        toast.success('New Employee Added', {
-          description: data.message,
-        });
-        queryClient.invalidateQueries({ queryKey: ['employees'] });
-      }
-    });
-
-    return () => {
-      socket.disconnect();
-    };
-  }, [queryClient]);
-
   return (
     <div className="flex flex-1 flex-col">
       <TopNavbar />
@@ -47,9 +24,10 @@ export const Dashboard = () => {
           </h2>
         </div>
 
-        <Stats />
 
         <TableProvider>
+        <Stats />
+        
           <TableMain />
         </TableProvider>
       </main>
