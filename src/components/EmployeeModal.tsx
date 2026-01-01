@@ -6,58 +6,78 @@ import {
   type Employee,
 } from '@/features/dashboard/hooks/useEmployeeMutations';
 import { useEmployee } from '@/features/dashboard/hooks/useEmployee';
-import { useEffect, useState } from 'react';
 import { EmployeeDetail } from './EmployeeDetail';
 import { Loader } from 'lucide-react';
 
 export const EmployeeModal = () => {
-  const { isOpen, mode, selectedId, close } = useEmployeeModal();
-  const [view, setView] = useState<'edit' | 'detail'>(
-    selectedId ? 'detail' : 'edit'
-  );
+  const { isOpen, mode, selectedId, close, openEdit } = useEmployeeModal();
   const { createMutation, updateMutation } = useEmployeeMutations();
-  // Fetch details if we have a selectedId
-  console.log({ selectedId });
-
-  useEffect(() => {
-    if (selectedId) {
-      setView('detail');
-    }
-  }, []);
 
   const { data: employeeDetails, isLoading } = useEmployee(selectedId);
+
   const handleFormSubmit = (data: Omit<Employee, 'id' | 'createdAt'>) => {
     if (mode === 'edit') {
       if (selectedId === null) return;
-
       updateMutation.mutate({ id: selectedId, ...data }, { onSuccess: close });
     } else {
       createMutation.mutate(data, { onSuccess: close });
     }
   };
+
+  const handleEditClick = () => {
+    if (selectedId) {
+      openEdit(selectedId);
+    }
+  };
+
   if (!isOpen) return null;
+
+  const renderContent = () => {
+    if ((mode === 'view' || mode === 'edit') && isLoading) {
+      return (
+        <div className="flex justify-center p-10">
+          <Loader className="animate-spin" />
+        </div>
+      );
+    }
+
+    if (mode === 'view' && employeeDetails) {
+      return (
+        <EmployeeDetail
+          employee={employeeDetails}
+          onEditClick={handleEditClick}
+        />
+      );
+    }
+
+    if (mode === 'edit' && employeeDetails) {
+      return (
+        <EmployeeForm
+          initialData={employeeDetails}
+          onSubmit={handleFormSubmit}
+          onClose={close}
+          isLoading={updateMutation.isPending}
+        />
+      );
+    }
+
+    if (mode === 'add') {
+      return (
+        <EmployeeForm
+          onSubmit={handleFormSubmit}
+          onClose={close}
+          isLoading={createMutation.isPending}
+        />
+      );
+    }
+
+    return null;
+  };
 
   return (
     <Dialog open={isOpen} onOpenChange={close}>
-      <DialogContent>
-        {/* If adding: show empty form.
-                   If editing: show loader OR the form populated with employeeDetails.
-                */}
-        {isLoading ? (
-          <div className="flex justify-center p-10">
-            <Loader />
-          </div>
-        ) : view === 'detail' ? (
-          <EmployeeDetail employee={employeeDetails} setView={setView} />
-        ) : (
-          <EmployeeForm
-            initialData={employeeDetails}
-            onSubmit={handleFormSubmit}
-            onClose={close}
-            isLoading={createMutation.isPending || updateMutation.isPending}
-          />
-        )}
-      </DialogContent>
+      <DialogContent>{renderContent()}</DialogContent>
     </Dialog>
   );
 };
+

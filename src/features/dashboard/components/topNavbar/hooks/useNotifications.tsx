@@ -30,6 +30,11 @@ export const useNotifications = () => {
       console.error('Socket Connection Error Details:', err.message);
       console.error('Error Object:', err);
     });
+
+    socket.on('connect', () => {
+      console.log('Socket connected successfully!');
+    });
+
     socket.on('notification', (data) => {
       const newNotif = {
         id: crypto.randomUUID(),
@@ -42,7 +47,12 @@ export const useNotifications = () => {
       );
     });
 
+    socket.connect();
+
     return () => {
+      socket.off('connect');
+      socket.off('connect_error');
+      socket.off('notification');
       socket.disconnect();
     };
   }, [admin?.id, queryClient]);

@@ -54,7 +54,7 @@ export const TableMain = () => {
         >
           <div className="sticky top-0 z-40 flex w-full border-b border-white/5 bg-slate-950/80 backdrop-blur-2xl">
             {table.getHeaderGroups().map((headerGroup) => (
-                <TableHeader key={headerGroup.id} headerGroup={headerGroup} />
+              <TableHeader key={headerGroup.id} headerGroup={headerGroup} />
             ))}
           </div>
 
@@ -107,7 +107,7 @@ export const TableMain = () => {
           )}
 
           {!isLoading && rows.length === 0 && (
-            <TableEmpty/>
+            <TableEmpty />
           )}
         </div>
 
