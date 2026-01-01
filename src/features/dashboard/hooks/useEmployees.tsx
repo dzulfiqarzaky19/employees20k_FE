@@ -4,16 +4,26 @@ import type { Employee } from './useEmployeeMutations';
 import { useTable } from '../context/TableContext';
 import { useDebounce } from './useDebounce';
 
+export interface IStats {
+    total: number;
+    page: number;
+    totalSalary: number;
+    totalPages: number;
+    totalDepartement: number
+}
+
+interface IEmployeesResponse {
+  data: Employee[];
+  total: number;
+  meta: IStats
+}
+
 export const useEmployees = () => {
   const { search, sorting, page, limit } = useTable();
 
   const debounceSearch = useDebounce(search, 1000);
 
-  const { data: queryData, isFetching: isLoading } = useQuery<{
-    data: Employee[];
-    total: number;
-    meta: { total: number; totalSalary: number; totalPages: number, totalDepartement: number };
-  }>({
+  const { data: queryData, isFetching: isLoading } = useQuery<IEmployeesResponse>({
     queryKey: ['employees', debounceSearch, sorting, page, limit],
     queryFn: async () => {
       const sort = sorting[0];
