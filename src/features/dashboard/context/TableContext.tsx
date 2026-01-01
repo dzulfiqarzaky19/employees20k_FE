@@ -1,5 +1,5 @@
 import type { OnChangeFn, SortingState } from '@tanstack/react-table';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, type Dispatch, type SetStateAction } from 'react';
 
 interface ITableContext {
   search: string;
@@ -7,7 +7,7 @@ interface ITableContext {
   sorting: SortingState;
   setSorting: OnChangeFn<SortingState>;
   page: number;
-  setPage: (page: number) => void;
+  setPage: Dispatch<SetStateAction<number>>;
   limit: number;
   setLimit: (limit: number) => void;
 }

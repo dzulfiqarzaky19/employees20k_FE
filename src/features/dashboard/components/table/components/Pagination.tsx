@@ -58,7 +58,7 @@ export const Pagination = () => {
             variant="outline"
             size="icon"
             className="h-8 w-8 rounded-lg border-white/10 bg-white/5 transition-all hover:bg-white/10 hover:text-white disabled:opacity-30"
-            onClick={() => setPage((p) => Math.max(1, p - 1))}
+            onClick={() => setPage((p: number) => Math.max(1, p - 1))}
             disabled={page === 1 || isLoading}
           >
             <ChevronLeft className="h-4 w-4" />
@@ -68,7 +68,7 @@ export const Pagination = () => {
             size="icon"
             className="h-8 w-8 rounded-lg border-white/10 bg-white/5 transition-all hover:bg-white/10 hover:text-white disabled:opacity-30"
             onClick={() =>
-              setPage((p) => Math.min(stats.totalPages || 1, p + 1))
+              setPage((p: number) => Math.min(stats.totalPages || 1, p + 1))
             }
             disabled={page >= (stats.totalPages || 1) || isLoading}
           >

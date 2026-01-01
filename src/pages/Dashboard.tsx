@@ -24,10 +24,9 @@ export const Dashboard = () => {
           </h2>
         </div>
 
-
         <TableProvider>
-        <Stats />
-        
+          <Stats />
+
           <TableMain />
         </TableProvider>
       </main>

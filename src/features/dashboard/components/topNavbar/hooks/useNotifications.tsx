@@ -1,7 +1,7 @@
 import { useAuth } from '@/context/AuthContext';
+import { socket } from '@/lib/socket';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEffect } from 'react';
-import { io } from 'socket.io-client';
 
 interface Notification {
   id: string;
@@ -25,10 +25,6 @@ export const useNotifications = () => {
     const userId = admin?.id;
 
     if (!userId) return;
-
-    const socket = io(import.meta.env.VITE_WS_URL || 'http://localhost:3000', {
-      transports: ['websocket'],
-    });
 
     socket.on('connect_error', (err) => {
       console.error('Socket Connection Error Details:', err.message);

@@ -1,6 +1,5 @@
 import { createContext, useContext, type ReactNode } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import api from '../lib/api';
+import { useQueryClient } from '@tanstack/react-query';
 import { useMe } from '@/features/login/hooks/useMe';
 
 interface Admin {
@@ -20,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
 
-  const { data: admin, isLoading } = useMe();
+ const { data: admin, isLoading } = useMe();
 
   const login = (token: string) => {
     localStorage.setItem('token', token);
