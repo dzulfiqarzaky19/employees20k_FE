@@ -17,6 +17,10 @@ export const useEmployeeMutations = () => {
   const createMutation = useMutation({
     mutationFn: (newEmployee: Omit<Employee, 'id' | 'createdAt'>) =>
       api.post('/employee', newEmployee),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['employees'] });
+      toast.success('Employee created successfully');
+    },
   });
 
   const updateMutation = useMutation({

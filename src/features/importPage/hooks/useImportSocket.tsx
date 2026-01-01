@@ -1,5 +1,6 @@
 import { socket } from '@/lib/socket';
 import { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 export type ImportStatus =
@@ -16,6 +17,7 @@ interface ImportState {
 }
 
 export const useImportSocket = () => {
+  const queryClient = useQueryClient();
   const [state, setState] = useState<ImportState>({
     progress: 0,
     status: 'idle',
@@ -60,6 +62,7 @@ export const useImportSocket = () => {
         toast.success('Import Successful', {
           description: data.message,
         });
+        queryClient.invalidateQueries({ queryKey: ['employees'] });
       } else if (data.type === 'IMPORT_ERROR') {
         setState((prev) => ({
           ...prev,
