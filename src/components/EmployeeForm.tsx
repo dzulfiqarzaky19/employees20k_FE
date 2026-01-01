@@ -34,14 +34,14 @@ export const EmployeeForm = ({
       <div className="space-y-2">
         <Label
           htmlFor="name"
-          className="ml-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase"
+          className="text-muted-foreground ml-1 text-[10px] font-black tracking-widest uppercase"
         >
           Full Name
         </Label>
         <Input
           id="name"
           required
-          className="h-12 rounded-xl border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30"
+          className="border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30 h-12 rounded-xl"
           placeholder="e.g. John Doe"
           value={formData.name}
           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
@@ -51,14 +51,14 @@ export const EmployeeForm = ({
       <div className="space-y-2">
         <Label
           htmlFor="position"
-          className="ml-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase"
+          className="text-muted-foreground ml-1 text-[10px] font-black tracking-widest uppercase"
         >
           Role / Position
         </Label>
         <Input
           id="position"
           required
-          className="h-12 rounded-xl border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30"
+          className="border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30 h-12 rounded-xl"
           placeholder="e.g. Software Engineer"
           value={formData.position}
           onChange={(e) =>
@@ -71,7 +71,7 @@ export const EmployeeForm = ({
         <div className="space-y-2">
           <Label
             htmlFor="age"
-            className="ml-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase"
+            className="text-muted-foreground ml-1 text-[10px] font-black tracking-widest uppercase"
           >
             Age
           </Label>
@@ -81,7 +81,7 @@ export const EmployeeForm = ({
             required
             min="18"
             max="100"
-            className="h-12 rounded-xl border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30"
+            className="border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30 h-12 rounded-xl"
             placeholder="25"
             value={formData.age || ''}
             onChange={(e) =>
@@ -92,7 +92,7 @@ export const EmployeeForm = ({
         <div className="space-y-2">
           <Label
             htmlFor="salary"
-            className="ml-1 text-[10px] font-black tracking-widest text-muted-foreground uppercase"
+            className="text-muted-foreground ml-1 text-[10px] font-black tracking-widest uppercase"
           >
             Monthly Salary
           </Label>
@@ -101,7 +101,7 @@ export const EmployeeForm = ({
             type="number"
             required
             min="0"
-            className="h-12 rounded-xl border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30"
+            className="border-border bg-input text-foreground placeholder:text-muted-foreground focus:ring-primary/30 h-12 rounded-xl"
             placeholder="5000000"
             value={formData.salary || ''}
             onChange={(e) =>
@@ -126,11 +126,11 @@ export const EmployeeForm = ({
         <Button
           type="submit"
           disabled={isLoading}
-          className="h-12 flex-1 rounded-xl bg-primary text-xs font-black tracking-wider text-primary-foreground uppercase shadow-lg shadow-primary/20 hover:bg-primary/90"
+          className="bg-primary text-primary-foreground shadow-primary/20 hover:bg-primary/90 h-12 flex-1 rounded-xl text-xs font-black tracking-wider uppercase shadow-lg"
         >
           {isLoading ? (
             <div className="flex items-center gap-2">
-              <div className="h-3 w-3 animate-spin rounded-full border-2 border-primary-foreground/20 border-t-primary-foreground" />
+              <div className="border-primary-foreground/20 border-t-primary-foreground h-3 w-3 animate-spin rounded-full border-2" />
               Processing...
             </div>
           ) : initialData ? (
@@ -143,4 +143,3 @@ export const EmployeeForm = ({
     </form>
   );
 };
-

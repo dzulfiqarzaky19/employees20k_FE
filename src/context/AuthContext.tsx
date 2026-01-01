@@ -19,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const queryClient = useQueryClient();
 
- const { data: admin, isLoading } = useMe();
+  const { data: admin, isLoading } = useMe();
 
   const login = (token: string) => {
     localStorage.setItem('token', token);

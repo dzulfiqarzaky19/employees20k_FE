@@ -102,13 +102,9 @@ export const TableMain = () => {
             })}
           </div>
 
-          {isLoading && (
-            <TableLoading />
-          )}
+          {isLoading && <TableLoading />}
 
-          {!isLoading && rows.length === 0 && (
-            <TableEmpty />
-          )}
+          {!isLoading && rows.length === 0 && <TableEmpty />}
         </div>
 
         <Pagination />

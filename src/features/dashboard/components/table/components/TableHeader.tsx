@@ -4,12 +4,10 @@ import { flexRender, type HeaderGroup } from '@tanstack/react-table';
 import { ArrowUpDown } from 'lucide-react';
 
 interface ITableHeaderProps {
-    headerGroup: HeaderGroup<Employee>;
+  headerGroup: HeaderGroup<Employee>;
 }
 
-export const TableHeader = ({
-  headerGroup,
-}: ITableHeaderProps) => {
+export const TableHeader = ({ headerGroup }: ITableHeaderProps) => {
   return (
     <div className="flex w-full">
       {headerGroup.headers.map((header) => (
