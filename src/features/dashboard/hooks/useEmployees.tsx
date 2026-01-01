@@ -12,7 +12,7 @@ export const useEmployees = () => {
   const { data: queryData, isFetching: isLoading } = useQuery<{
     data: Employee[];
     total: number;
-    meta: { total: number; totalSalary: number; totalPages: number };
+    meta: { total: number; totalSalary: number; totalPages: number, totalDepartement: number };
   }>({
     queryKey: ['employees', debounceSearch, sorting, page, limit],
     queryFn: async () => {

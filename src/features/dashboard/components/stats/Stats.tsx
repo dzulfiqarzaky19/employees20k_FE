@@ -7,7 +7,7 @@ export const Stats = () => {
   const { stats } = useEmployees();
 
   if (!stats) return null;
-  
+
   return (
     <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
       <Card className="group relative overflow-hidden border-white/10 bg-white/5 backdrop-blur-xl">
@@ -16,16 +16,12 @@ export const Stats = () => {
         </div>
         <CardHeader className="pb-2">
           <CardTitle className="text-xs font-bold tracking-widest text-slate-500 uppercase">
-            Total Employees
+            Total Employees Shown
           </CardTitle>
         </CardHeader>
         <CardContent>
           <p className="text-4xl font-black text-white">
             {(stats.total || 0).toLocaleString()}
-          </p>
-          <p className="mt-2 flex items-center gap-1 text-[10px] font-bold text-emerald-400">
-            <TrendingUp className="h-3 w-3" />
-            +12% from last month
           </p>
         </CardContent>
       </Card>
@@ -40,7 +36,7 @@ export const Stats = () => {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-4xl font-black text-white">24</p>
+          <p className="text-4xl font-black text-white">{stats.totalDepartement || 0}</p>
           <p className="mt-2 text-[10px] font-bold tracking-wide text-slate-500">
             Across all regions
           </p>
