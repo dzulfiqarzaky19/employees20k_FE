@@ -1,11 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ImportPage } from '@/pages/ImportPage';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Mock the hooks
 vi.mock('@/features/importPage/hooks/useImportSocket', () => ({
     useImportSocket: () => ({
         progress: 0,
@@ -24,7 +22,6 @@ vi.mock('@/features/importPage/hooks/useImportUpload', () => ({
     }),
 }));
 
-// Mock socket
 vi.mock('@/lib/socket', () => ({
     socket: {
         on: vi.fn(),
@@ -92,7 +89,6 @@ describe('ImportPage - File Selection', () => {
     it('shows file preview after file selection', () => {
         renderImportPage();
 
-        // File input is hidden, would need to trigger via drop or input change
         const dropzone = screen.getByText(/select csv document/i).closest('div');
         expect(dropzone).toBeInTheDocument();
     });
