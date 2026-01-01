@@ -17,7 +17,7 @@ import { TableEmpty } from './components/TableEmpty';
 import { TableLoading } from './components/TableLoading';
 
 export const TableMain = () => {
-  const columns = useTableColumns();
+  const { columns } = useTableColumns();
   const { queryData, isLoading } = useEmployees();
   const { sorting, setSorting, search, page, limit } = useTable();
   const debounceSearch = useDebounce(search, 1000);
