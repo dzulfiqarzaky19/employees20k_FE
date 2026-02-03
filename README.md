@@ -35,7 +35,7 @@ Before you begin, ensure you have the following installed:
 
 ## Configuration
 
-Create a `.env` file in the root directory to configure the application. You can refer to `.env.example` if available, or use the following template:
+Create a `.env` file in the root directory to configure the application. You can refer to `.env.example` and use the following template:
 
 ```properties
 # API Base URL

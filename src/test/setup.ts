@@ -6,7 +6,6 @@ afterEach(() => {
     cleanup();
 });
 
-// Mock ResizeObserver as a class
 class ResizeObserverMock {
     observe = vi.fn();
     unobserve = vi.fn();
@@ -15,7 +14,6 @@ class ResizeObserverMock {
 
 globalThis.ResizeObserver = ResizeObserverMock;
 
-// Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: vi.fn().mockImplementation((query) => ({

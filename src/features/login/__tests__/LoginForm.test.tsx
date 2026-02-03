@@ -5,7 +5,6 @@ import { LoginForm } from '@/features/login/components/LoginForm';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Mock the useLogin hook
 const mockMutate = vi.fn();
 vi.mock('@/features/login/hooks/useLogin', () => ({
     useLogin: () => ({
@@ -77,8 +76,6 @@ describe('LoginForm', () => {
             }),
         }));
 
-        // Re-render would show error - this is a simplified test
         renderLoginForm();
-        // The actual error display depends on re-rendering with new mock
     });
 });

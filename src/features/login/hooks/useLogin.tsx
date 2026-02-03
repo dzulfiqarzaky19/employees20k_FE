@@ -1,11 +1,16 @@
 import { useAuth } from '@/context/AuthContext';
 import api from '@/lib/api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 
 interface LoginResponse {
   token: string;
+}
+
+interface ApiErrorResponse {
+  message: string;
 }
 
 interface LoginRequest {
@@ -18,7 +23,11 @@ export const useLogin = () => {
   const { login } = useAuth();
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<LoginResponse, Error, LoginRequest>({
+  const mutation = useMutation<
+    LoginResponse,
+    AxiosError<ApiErrorResponse>,
+    LoginRequest
+  >({
     mutationFn: async (credentials) => {
       const response = await api.post('/auth/login', credentials);
       return response.data;
@@ -32,7 +41,7 @@ export const useLogin = () => {
 
       navigate('/', { replace: true });
     },
-    onError: (error: Error) => {
+    onError: (error) => {
       const errorMessage =
         error.response?.data?.message || 'Something went wrong';
 

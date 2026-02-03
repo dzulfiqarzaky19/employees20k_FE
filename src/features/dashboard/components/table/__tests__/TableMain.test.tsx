@@ -77,6 +77,6 @@ describe('TableMain - Loading State', () => {
             }),
         }));
 
-        // Loading state would show skeleton/spinner
+
     });
 });

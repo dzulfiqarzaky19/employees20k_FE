@@ -1,3 +1,4 @@
+import React from 'react';
 import { Label } from '@/components/ui/label';
 import { useLogin } from '../hooks/useLogin';
 import { Loader2, Lock, LogIn, Mail } from 'lucide-react';
