@@ -1,14 +1,9 @@
 import { createContext, useContext, type ReactNode } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useMe } from '@/features/login/hooks/useMe';
-
-interface Admin {
-  id: string;
-  email: string;
-}
+import { useMe, type User } from '@/features/login/hooks/useMe';
 
 interface AuthContextType {
-  admin: Admin | null | undefined;
+  admin: User | null | undefined;
   login: (token: string) => void;
   logout: () => void;
   isLoading: boolean;
