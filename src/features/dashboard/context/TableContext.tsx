@@ -3,6 +3,7 @@ import {
   createContext,
   useContext,
   useState,
+  useMemo,
   type Dispatch,
   type SetStateAction,
 } from 'react';
@@ -61,20 +62,23 @@ export const TableProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const value = useMemo(
+    () => ({
+      search,
+      setSearch,
+      sorting,
+      setSorting,
+      page,
+      setPage,
+      limit,
+      setLimit,
+      openDeleteDialog,
+    }),
+    [search, sorting, page, limit]
+  );
+
   return (
-    <TableContext.Provider
-      value={{
-        search,
-        setSearch,
-        sorting,
-        setSorting,
-        page,
-        setPage,
-        limit,
-        setLimit,
-        openDeleteDialog,
-      }}
-    >
+    <TableContext.Provider value={value}>
       {children}
       <DeleteEmployeeDialog
         open={!!deleteTarget}

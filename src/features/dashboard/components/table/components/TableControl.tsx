@@ -4,12 +4,28 @@ import { useTable } from '@/features/dashboard/context/TableContext';
 import { useEmployeeModal } from '@/features/dashboard/hooks/useEmployeeModal';
 import { Plus, Search, Upload } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export const TableControl = () => {
   const { search, setSearch } = useTable();
+  const [localSearch, setLocalSearch] = useState(search);
   const navigate = useNavigate();
 
   const { openAdd } = useEmployeeModal();
+
+  useEffect(() => {
+    setLocalSearch(search);
+  }, [search]);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setSearch(localSearch);
+    }, 300); // 300ms debounce for UI responsiveness
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [localSearch, setSearch]);
 
   return (
     <div className="mb-8 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
@@ -18,8 +34,8 @@ export const TableControl = () => {
         <Input
           placeholder="Filter records by name, role, or ID segment..."
           className="h-14 rounded-2xl border-white/10 bg-white/5 pl-12 text-white shadow-inner transition-all placeholder:text-slate-600 focus:border-blue-500/40 focus:ring-blue-500/30"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={localSearch}
+          onChange={(e) => setLocalSearch(e.target.value)}
         />
       </div>
 
